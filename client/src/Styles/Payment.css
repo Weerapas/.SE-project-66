@@ -1,0 +1,120 @@
+.Payment{
+    background-color: rgb(255, 255, 255);
+}
+.Payment-box{
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);   
+    margin-top: 100px; 
+}
+.Payment-container{
+    padding: 0 0;
+    margin: 0 0;
+}
+.QR-code-payment{
+    padding: 0 0;
+    text-align: left;
+}
+.payment-detali p{
+    font-size: 0px;
+}
+.QR-code-payment img{
+    width: 400px;
+    border-radius: 15px;
+    border: 1px solid #a5a5a5;
+}
+.paymentButton{
+
+    padding: 50px 0px;
+    margin-left: 110px;
+    
+}
+
+.price{
+    
+    margin-top: 5px;
+    width: auto;
+    text-align: left;
+    
+}
+.price p{
+text-align: left;
+margin-bottom: 0px;
+}
+.price a{
+    padding: 0 0;
+    font-size: 20px;
+    color: #6EC4DB; 
+    text-decoration: none;
+}
+.text-red{
+    color: #ff0000;
+    font-size: 20px;
+}
+.form_des_info {
+    background: #FFFFFF;
+    padding: 15px;
+    text-align: left;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius:15px;
+    height: 300px;
+    border: 1px solid #a5a5a5;
+    margin-left: 100px;
+    width: 400px;
+  }
+  .form_des_info p{
+    font-size: 20px;
+  }
+  .form_des_info input {
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 20px;
+    border-radius:15px;
+    
+  }
+  .topic_dse_info{
+    font-size: 30px;
+    color: #6EC4DB;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 8%;
+  }
+.summit{
+    background-color: #6EC4DB;
+    padding: 15px 32px;
+}
+
+@media (max-width:900px) {
+    .Payment-box{
+        margin: auto;
+        width: auto;
+        border: 1px solid rgb(144, 144, 144);
+        padding: 10px;
+        display: grid;
+        grid-template-columns: repeat(1,1fr);   
+        margin-top: 0px; 
+    }
+    .form_des_info {
+    
+    background: #FFFFFF;
+    padding: 15px;
+    text-align: left;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius:15px;
+    height: auto;
+    border: 1px solid rgb(144, 144, 144);
+    /* margin-left: 200px;
+    margin-top: 50px;
+    width: 400px; */
+    margin-top: 50px;
+  }
+}
+
+

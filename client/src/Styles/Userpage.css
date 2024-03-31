@@ -1,0 +1,37 @@
+.Userinfobg{
+    margin-left: 25%;
+    margin-top: 30px;
+    background-color: #6EC4DB;
+    border-radius: 10px;
+    height: 400px;
+    width: 50%;
+}
+.Userinfobg h1{
+    color:rgb(255, 255, 255);
+    margin-top : 30px;
+}
+.Userinfocontainer{
+    
+    display: grid;
+    grid-gap: 20px;
+    height: 20%;
+    width: auto;
+    align-items: left;
+    justify-items: left;
+    justify-content: left;
+    padding: 30px 30px;
+    color: rgb(255, 255, 255);
+    
+}
+.Userinfobg p{
+    text-align: left;
+}
+.Userinformation{
+    color: rgb(255, 255, 255);
+    width: auto;
+}
+.LogoutButton{
+    margin-top: -30px;
+    margin-left: 600px;
+    padding: 30px 30px;
+}

@@ -1,0 +1,159 @@
+p{
+  font-size: 30px; 
+}
+.Cart-container
+{   
+  padding: 10px 10px;
+  margin: 25px 25px;
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  border: solid #000;
+
+
+}
+.Cart-container-des
+{   
+  padding: 10px 10px;
+  margin: 25px 25px;
+  display: grid;
+  
+  border: solid #000;
+
+
+}
+.Cart-container-top
+{   
+  padding: 1px 10px;
+  margin: 2px 10px;
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  border: solid #000;
+
+
+}
+.item_top{
+
+  padding: 0px 50px;
+}
+.item_img{
+
+  width: 100%;
+  height: 100%;
+}
+.item_img img{
+  width: 200px;
+  height: auto;
+  margin-top: 20px;
+}
+.item_bookid{
+
+  padding: 50px 50px;
+}
+
+.item_bookname{
+
+  padding: 50px 50px;
+}
+.item_BookType{
+
+  padding: 50px 50px;
+}
+.item_button{
+
+  padding: 50px 50px;
+}
+.button-delete{
+padding: 15px 30px;
+border-radius: 50px;
+border: 1px solid #bababa;
+background-color: white;
+box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+font-size: 15px;
+transition: all .5s ease;
+}
+.button-delete:hover{
+  color: #fff;
+background-color: #db6e6e;
+box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+transform: translateY(-2px);
+}
+
+.button-payment{
+  padding: 15px 30px;
+  border-radius: 50px;
+  border: 1px solid #bababa;
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all .5s ease;
+  }
+  .button-payment:hover{
+    color: #fff;
+  background-color: #00e522;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+  }
+.valueform {
+  width: 300px;
+  margin: 0 ;
+  text-align: left;
+  padding-top: 10px;
+}
+
+.value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 38px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 5px 0;
+  background: #eee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+.valueform #decrease {
+  margin-right: 0px;
+  border-radius: 8px 0 0 8px;
+}
+
+.valueform #increase {
+  margin-left: 0px;
+  border-radius: 0 8px 8px 0;
+}
+
+.valueform #input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+.valueform input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 37.6px;
+  padding-bottom: 4px;
+}
+
+.valueform input[type=number]::-webkit-inner-spin-button,
+.valueform input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
