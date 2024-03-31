@@ -44,7 +44,6 @@ function App() {
       sessionStorage.setItem("usernamelogin","null");
       sessionStorage.setItem("login_status","false");
       sessionStorage.setItem("role","null");
-      sessionStorage.setItem("Phone","null")
     }
 
   }
