@@ -10,10 +10,10 @@
 }
 
 :root {
-	--mainColor: #6EC4DB;
-	--mainColorLight: #5767aa;
-	--secondaryColor: #000000;
-	--textColor: #eee;
+	--mainColor: #ffe862;
+	--mainColorLight: #f1ffb4;
+	--secondaryColor: #ff8383;
+	--textColor: #ffffff;
 }
 
 header {
@@ -41,6 +41,7 @@ header .nav-btn {
 	padding: 1px;
 	cursor: pointer;
 	background: transparent;
+	background-color: #ffe862;
 	border: none;
 	outline: none;
 	color: var(--textColor);

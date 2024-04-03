@@ -10,7 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #6EC4DB;
+    background-color: rgba(254, 254, 153, 0.908);
     margin: 30px;
 }
 
@@ -33,7 +33,7 @@
 }
 .information a{
     text-emphasis: none;
-    color: #ffffff;
+    color: #000000;
     
     padding: 0.5rem;
     text-decoration: none;
