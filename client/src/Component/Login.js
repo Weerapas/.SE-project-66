@@ -5,7 +5,7 @@ import { useNavigate  } from "react-router-dom";
 import "../Styles/login.css";
 
 export default function Sing_up() {
-  // const [phone, setphone] = useState("");
+  const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const navigate = useNavigate();
   
@@ -28,7 +28,7 @@ export default function Sing_up() {
 
   const requst_login = () => [
     Axios.post("http://localhost:3001/requst_login", {
-      phone: phone,
+      username: username,
       password: password,
     }).then((Response) => {
       if (Response.data[0] == "succes") {
@@ -49,12 +49,12 @@ export default function Sing_up() {
         <div class="form">
           <form className="loginbox"></form>
           <div className="topic">LOGIN</div>
-          <div className="text">Phone number : </div>
+          <div className="text">username : </div>
           <input
             type="text"
-            placeholder="Enter Phone number"
+            placeholder="Enter username"
             onChange={(event) => {
-              setphone(event.target.value);
+              setusername(event.target.value);
             }}
           />
 
