@@ -52,7 +52,7 @@ export default function Payment() {
             <div className="price">
               <p>ราคาสุทธิ {total} THB</p>
               <p className="text-red">
-                *หมายเหตุกรุณาเลขออเดอร์{}ที่บันทึกความจำและส่งสลิปไปที่ <FaArrowCircleDown />{" "}
+                *หมายเหตุ กรุณาเลขออเดอร์{}ที่บันทึกความจำและส่งสลิปไปที่ <FaArrowCircleDown />{" "}
                 
               </p>
 

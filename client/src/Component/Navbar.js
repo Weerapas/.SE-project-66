@@ -36,12 +36,7 @@ function Navbar() {
 				return(
 				
 				<nav ref={navRef}>
-<<<<<<< Updated upstream
-				<a href="/Book_shelf">หนังสือ</a>
-				<a href="/Contact">ติดต่อ</a>
-=======
 				<a href="/Book_shelf">สินค้า</a>
->>>>>>> Stashed changes
 				<a href="/Order_history">การสั่งซื้อ</a> 
 				<a href="/Cart">ตะกร้าสินค้า</a>
 				<a href="/Contact">ติดต่อ</a>
@@ -84,13 +79,8 @@ function Navbar() {
 	
 	return (
 		<header>
-<<<<<<< Updated upstream
-			<h1 className="System_Name"> SanookkidSanookarn</h1>
-			
-=======
 			<img src="Hnompang-Logo.png" alt="Logo" width="75px" title="Logo"></img>
 			<h1 className="System_Name"> HnomPang Sankhayah</h1>
->>>>>>> Stashed changes
 			{show_login()}
 			<button
 				className="nav-btn"
