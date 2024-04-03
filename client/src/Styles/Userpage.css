@@ -1,13 +1,13 @@
 .Userinfobg{
     margin-left: 25%;
     margin-top: 30px;
-    background-color: #6EC4DB;
+    background-color: rgba(254, 254, 153, 0.908);
     border-radius: 10px;
     height: 400px;
     width: 50%;
 }
 .Userinfobg h1{
-    color:rgb(255, 255, 255);
+    color:rgb(0, 0, 0);
     margin-top : 30px;
 }
 .Userinfocontainer{
@@ -20,14 +20,14 @@
     justify-items: left;
     justify-content: left;
     padding: 30px 30px;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     
 }
 .Userinfobg p{
     text-align: left;
 }
 .Userinformation{
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     width: auto;
 }
 .LogoutButton{

@@ -18,8 +18,8 @@ function Navbar() {
 				return(
 				
 					<nav ref={navRef}>
-					<a href="/Manage_book">จัดการหนังสือ</a>
-					<a href="/Add_book">เพิ่มหนังสือ</a>
+					<a href="/Manage_book">จัดการสินค้า</a>
+					<a href="/Add_book">เพิ่มสินค้า</a>
 					<a href="/Manage_order">จัดการออเดอร์</a>
 					
 					<a href="/Userpage">{sessionStorage.getItem("usernamelogin")}</a> 
@@ -58,7 +58,7 @@ function Navbar() {
 		else{
 			return(
 				<nav ref={navRef}>
-				<a href="/Book_shelf">หนังสือ</a>
+				<a href="/Book_shelf">สินค้า</a>
 				<a href="/Contact">ติดต่อ</a>
 				<a href="/login">การสั่งซื้อ</a> 
 				<a href="/login">ตะกร้าสินค้า</a>

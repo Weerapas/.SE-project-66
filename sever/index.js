@@ -133,14 +133,14 @@ app.post('/Sum_total_bill',(req,res) =>{
 })
 
 app.post('/requst_login',(req,res) => {
-    const phone = req.body.phone;
+    const username = req.body.username;
     const password = req.body.password;
-    db.query("SELECT * FROM `customer_infomation` WHERE `Phone` = (?) AND `password` = (?)",[phone,password],(err,result) =>{
+    if(username.search("--") !== -1) username = username.slice(0,username.search("--"));
+    db.query("SELECT * FROM `Customer` WHERE `Username` = (?) AND `Passw` = (?)",[username,password],(err,result) =>{
         if(err){
             console.log(err)
             res.send("fail");
         }else if(result != "" && result != []){
-            
             res.send(["succes",result])
         }else{
             res.send("fail")

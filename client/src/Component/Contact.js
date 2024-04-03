@@ -5,20 +5,19 @@ import '../Styles/Contact.css';
 import {FaLine} from "react-icons/fa";
 export default function Contact() {
     return (
-        <div class="headerbg">
+    <div class="headerbg">
         <div class="container">
+        
             <div class="information">
-                <a  href="#">แอด ไลน์กันเลย</a>
+                <a  href="#">ติดต่อสอบถาม โทร  </a>
+                <a> 0989898989</a>
             </div>
-
-            <div class="QR_code">
-              <img 
-                  src="https://drive.google.com/uc?export=view&id=1J0RVrMiGMFOcLVT_oqDMQGFl8qHi9gop"
-                  alt=""
-                  >
-              </img>   
-            </div>              
+            
+            <div class="information">
+                <a> หน้าร้านเปิดทุกวันเวลา 8:00am - 10:00pm  </a>
+            </div>
+        
         </div> 
-      </div> 
+    </div>
     );
 }
