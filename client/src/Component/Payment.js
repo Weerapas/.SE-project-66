@@ -30,7 +30,7 @@ export default function Payment() {
         Des : Des,
         Phone : Phone
     }).then((Response) =>{
-      navigate('/Book_shelf', { replace: true });
+      navigate('/Confirm', { replace: true });
     }
        
     )
@@ -52,7 +52,7 @@ export default function Payment() {
             <div className="price">
               <p>ราคาสุทธิ {total} THB</p>
               <p className="text-red">
-                *หมายเหตุ กรุณาเลขออเดอร์{}ที่บันทึกความจำและส่งสลิปไปที่ <FaArrowCircleDown />{" "}
+                *หมายเหตุ กรุณาส่งสลิปไปที่ <FaArrowCircleDown />{" "}
                 
               </p>
 

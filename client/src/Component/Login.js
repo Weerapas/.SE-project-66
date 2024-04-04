@@ -2,6 +2,21 @@ import * as React from "react";
 import Axios from "axios";
 import { useState } from "react";
 import { useNavigate  } from "react-router-dom";
+// import speakeasy from 'speakeasy';
+
+// const generateSecret = () => {
+//   return speakeasy.generateSecret({ length: 20 });
+// };
+
+// const secret = generateSecret();
+// const otpauthURL = speakeasy.otpauthURL({
+//   secret: secret.ascii,
+//   label: 'MyApp',
+//   issuer: 'MyCompany',
+// });
+
+// Use otpauthURL to generate a QR code and display it for the user to scan
+
 import "../Styles/login.css";
 
 export default function Sing_up() {
@@ -32,9 +47,8 @@ export default function Sing_up() {
       password: password,
     }).then((Response) => {
       if (Response.data[0] == "succes") {
-        console.log(Response.data[1][0].Role)
-        console.log(Response.data[1][0].Fist_name)
-        set_session_login_true(Response.data[1][0].Role, Response.data[1][0].Fist_name);
+        console.log(Response.data[1][0])
+        set_session_login_true(Response.data[1][0].Role, Response.data[1][0].Username);
       } else {
         sessionStorage.setItem("usernamelogin","null"); 
         sessionStorage.setItem("login_status","false");

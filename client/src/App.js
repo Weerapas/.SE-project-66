@@ -19,7 +19,7 @@ import Register_suc from './Component/Reg_suc';
 import Payment from './Component/Payment';
 import Contact from './Component/Contact';
 import Register from './Component/Register';
-import Cart from './Component/Cart';
+import Cart from './Component/Cart2';
 import Order_history from './Component/Order_history';
 import See_order_detail from './Component/See_order_detail';
 import Userpage from './Component/Userpage';

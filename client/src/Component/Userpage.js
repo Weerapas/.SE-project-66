@@ -6,15 +6,22 @@ import "../Styles/Userpage.css";
 
 export default function Userpage() {
     const [username,setusername] = useState("");
-    // const [Last_name,setLast_name] = useState("");
+    const [Role,setRole] = useState("");
     // const Phone = sessionStorage.getItem("Phone");
     const navigate = useNavigate();
 
     const getuserinfo = () =>{
         Axios.post('http://localhost:3001/Get_user',{
-            username : username
+            username : sessionStorage.getItem("usernamelogin")
         }).then((Response) => {
-            setusername(Response.data[0].username);
+            console.log(Response.data[0])
+            setusername(Response.data[0].Username);
+            if(Response.data[0].role == "godEE"){
+                setRole("admin");
+            }
+            else{
+                setRole(Response.data[0].role);
+            }
         });
     }
     const logout = () =>{
@@ -36,6 +43,9 @@ export default function Userpage() {
 
             <div className='Userinfocontainer'>
                     <p>Username : {username}</p>
+            </div>
+            <div className='Userinfocontainer'>
+                    <p>Role : {Role}</p>
             </div>
             <div className='LogoutButton'>
                 <Link to={'/login'}><button className="button-29" onClick={logout}>Logout</button></Link>

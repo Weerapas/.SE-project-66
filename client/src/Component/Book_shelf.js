@@ -5,15 +5,15 @@ import { Link ,useParams} from 'react-router-dom';
 import '../Styles/gridbox.css'
 
 export default function Book_shelf() {
-    const [booklist,setbooklist] = useState([]);
+    const [ProductList,setProductList] = useState([]);
     
 
-    const getBooklist = () =>{
-        Axios.get('http://localhost:3001/Requst_book').then((Response) => {
-            setbooklist(Response.data);
+    const getlist = () =>{
+        Axios.get('http://localhost:3001/Requst_product').then((Response) => {
+            setProductList(Response.data);
         });
     }
-    getBooklist();
+    getlist();
 
   
   return (
@@ -23,14 +23,15 @@ export default function Book_shelf() {
         
       </div>
     <div className="books" >
-    {booklist.map((val, key) =>{
+    {ProductList.map((val, key) =>{
         return (
            <div className='books-sell'>
                            <img src= {"https://drive.google.com/uc?export=view&id="+val.Book_Pic} alt=""></img>
-                                       <p>Book ID:{val.Book_ID}</p>
-                                       <p>{val.Book_Name}</p>
-                                       <p>{val.Book_Type}&nbsp;&nbsp;{val.Book_Price}$</p>
-                                       <Link to={"/See_detail/"+val.Book_ID}>
+                                       <p>ID:{val.PID}</p>
+                                       <p>{val.Pname}</p>
+                                       <p>{val.Size}</p>
+                                       <p>{val.Price} tbh</p>
+                                       <Link to={"/See_detail/" + val.PID}>
                                        <button className="button-28" >See detail</button>
                                        </Link> 
             </div>

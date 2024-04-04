@@ -13,6 +13,7 @@ export default function Register(){
     const addcustomer =()=>{
         Axios.post('http://localhost:3001/Register',{
             username : username,
+            phone : phone,
             password : password
         }).then( (Response) =>{ 
             if (Response.data === "Values inserted"){
