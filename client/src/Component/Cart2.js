@@ -99,7 +99,7 @@ export default function Cart() {
                 )}
                 </div>
                 <div className='foot_cart'>
-                    <Link><button className="button-payment" onClick={add_order}>Payment</button></Link>
+                    <Link><button className="button-payment" onClick={add_order}>CheckOut</button></Link>
                 </div>
             <div className='item_button'>
                 <button className="button-payment" onClick={() => addToCart({

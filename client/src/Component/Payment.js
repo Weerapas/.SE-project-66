@@ -5,34 +5,29 @@ import { useState } from 'react';
 import { FaArrowCircleDown } from "react-icons/fa";
 import {  useNavigate } from 'react-router-dom';
 export default function Payment() {
-  const Phone = sessionStorage.getItem("Phone");
+  const username = sessionStorage.getItem("usernamelogin");
   const [total,settotal] = useState(0);
   const order_id = sessionStorage.getItem("order_temp")
   const [Des,setDes] = useState("")
   const navigate = useNavigate();
   
-
   const sum_total = () => {
     Axios.post('http://localhost:3001/Sum_total',{
-        Phone : Phone
+        username : username
     }).then((Response) =>{
-      
         settotal(parseInt(Response.data[0].totalprice))
     }
-       
     )
   }
   sum_total()
 
   const confirm_order_by_cus = () =>{
     Axios.post('http://localhost:3001/confirm_order_by_cus',{
-        order_id : order_id,
-        Des : Des,
-        Phone : Phone
+      username : username,
+      Des : Des
     }).then((Response) =>{
       navigate('/Confirm', { replace: true });
     }
-       
     )
   }
 
@@ -51,10 +46,10 @@ export default function Payment() {
 
             <div className="price">
               <p>ราคาสุทธิ {total} THB</p>
-              <p className="text-red">
+              {/* <p className="text-red">
                 *หมายเหตุ กรุณาส่งสลิปไปที่ <FaArrowCircleDown />{" "}
                 
-              </p>
+              </p> */}
 
               <a href="https://line.me/R/ti/p/@030eokii">@030eokii</a>
             </div>

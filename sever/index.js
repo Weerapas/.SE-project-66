@@ -117,12 +117,22 @@ app.post('/Delete_cart',(req,res) =>{
 //SELECT SUM(`total`) AS totalprice FROM `cart` WHERE 1
 
 app.post('/Sum_total',(req,res) =>{
-    const Phone = req.body.Phone
-    db.query("SELECT SUM(`total`) AS totalprice FROM `cart` WHERE `Phone` = (?) AND `bill_ID` = (?)",[Phone,"null"],(err,result) => {
+    const username = req.body.username
+    var tempUID = 0;
+    var tempOrderCount = 0;
+    db.query("select UID,ordered from customer where Username = (?)",[username],(err,result) => 
+    {if(err) {
+        res.send("fail")
+        return false;
+    } 
+    else {
+        tempUID = result.UID;
+        tempOrderCount = result.ordered;
+    }})
+    db.query("SELECT SUM(product.Price * ordersdetail.amount) as totalprice FROM `ordersdetail`,product WHERE ordersdetail.orderPID = product.PID and ordersdetail.OrderID = (?)",[tempOrderCount],(err,result) => {
         if(err){
             console.log(err)
         }else{
-            
             res.send(result)
         }
     })
@@ -258,26 +268,34 @@ app.post('/Delete_order',(req,res)=>{
             console.log(err)
         }else{
             res.send(result)
-
-            
         }
     })
 })
 
 app.post('/confirm_order_by_cus',(req,res) =>{
-    const order_id = req.body.order_id
+    const username = req.body.username
     const Des = req.body.Des
-    const Phone = req.body.Phone
-    db.query("UPDATE `order` SET `Order_Status`=(?),`Destination`=(?) WHERE `Order_ID` = (?)",["ปกติ",Des,order_id],(err,result) =>{
+    var tempUID = 0;
+    var tempOrderCount = 0;
+    db.query("select UID,ordered from customer where Username = (?)",[username],(err,result) => 
+    {if(err) {
+        res.send("fail")
+        return false;
+    } 
+    else {
+        tempUID = result.UID;
+        tempOrderCount = result.ordered;
+    }})
+    db.query("UPDATE `orders` SET `status`=(?),`dest`=(?) WHERE `OrderID` = (?)",["ยังไม่จ่าย",Des,order_id],(err,result) =>{
         if(err){
             console.log(err)
         }else{
             res.send(result)
-            db.query("UPDATE `cart` SET `bill_ID`= (?) WHERE `Phone` = (?) AND `bill_ID` = (?)",[order_id,Phone,"null"],(err,result) =>{
-                if(err){
-                    console.log(err)
-                }
-            })
+            // db.query("UPDATE `cart` SET `bill_ID`= (?) WHERE `Phone` = (?) AND `bill_ID` = (?)",[order_id,Phone,"null"],(err,result) =>{
+            //     if(err){
+            //         console.log(err)
+            //     }
+            // })
             
         }
     })
@@ -288,11 +306,11 @@ app.post('/Register',(req,res) => {
     const phone = req.body.phone;
     const password = req.body.password;
     db.query(
-        "INSERT INTO `customer`('username','password','phone') VALUES(?,?,?)",
+        "INSERT INTO customer (Username,Password,phone) VALUE(?,?,?)",
         [username,password,phone],
         (err,result) =>{
             if(err){
-                //console.log(err);
+                console.log(err);
                 res.send("Error")
             }else{
                 res.send("Values inserted");
