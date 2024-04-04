@@ -7,6 +7,7 @@ import { ImCart } from "react-icons/im";
 
 export default function See_detail(){
 
+
     const { PID } = useParams();
     const [Product, setProduct] = useState([]);
     const [bookQ,setbookQ] = useState(0);
@@ -19,15 +20,19 @@ export default function See_detail(){
         Axios.post('http://localhost:3001/Requst_one_product', { PID }).then((Response) => {
             setProduct(Response.data[0]);
             // setbookQ(Response.data[0].Book_Quantity);
+
         });
         
     }
     React.useEffect(() => {
+
         postProduct()
+
         
     },[]);
 
     const addcart = () =>{
+
         // const total = Product.Price*amount;
         Axios.post('http://localhost:3001/Add_to_cart',{
             PID : PID,
@@ -48,10 +53,12 @@ export default function See_detail(){
 
     const check =() => {
         if (Product.available != false){
+
             if (sessionStorage.getItem("login_status") == "true"){
                 return(
                     <div> <div class='valueform'>
                     <button class="value-button" id="decrease" onClick={decreaseValue}>-</button>
+
                     <input type="number" id="number"
                     defaultValue={amount}
                     value={amount}
@@ -60,6 +67,7 @@ export default function See_detail(){
                         if (amount < 0 ){
                             setamount(1)
                         }
+
                     }}  />
                     <button class="value-button" id="increase" onClick={increaseValue} >+</button>
                 </div>
@@ -71,6 +79,7 @@ export default function See_detail(){
                     <div> <div class='valueform'>
                     <button class="value-button" id="decrease" onClick={decreaseValue}>-</button>
                     <input type="number" id="number" 
+
                     defaultValue={amount}
                     value={amount}
                     onChange={(event) =>{
@@ -78,6 +87,7 @@ export default function See_detail(){
                         if (amount < 0 ){
                             setamount(1)
                         }
+
                     }}  />
                     <button class="value-button" id="increase" onClick={increaseValue} >+</button>
                 </div>
@@ -99,6 +109,7 @@ export default function See_detail(){
         <div class="content_detali">
 
             <div class="img_detali">
+
                  <img src={"https://drive.google.com/uc?export=view&id="+Product.Book_Pic} alt=""></img>
             </div>
             
@@ -107,6 +118,7 @@ export default function See_detail(){
                 <p>{Product.Book_Detail}</p>
                 <br></br>
                 <h1>ราคา : {Product.Book_Price} THB</h1>
+
                 {check()}
 
             </div>              

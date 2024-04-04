@@ -8,6 +8,7 @@ export default function Register_fail(){
 
     return(
         <div>
+
              <body className="box">
         <div class="form">
           <form className="loginbox"></form>
@@ -21,6 +22,7 @@ export default function Register_fail(){
             <p class="message">Already register? <a href="login">Login</a></p>
         
         </div> 
+
         </body>
         </div>
 

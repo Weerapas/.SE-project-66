@@ -5,6 +5,7 @@ import '../Styles/Contact.css';
 import {FaLine} from "react-icons/fa";
 export default function Contact() {
     return (
+
     <div class="headerbg">
         <div class="container">
         
@@ -19,5 +20,6 @@ export default function Contact() {
         
         </div> 
     </div>
+
     );
 }

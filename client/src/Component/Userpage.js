@@ -5,13 +5,16 @@ import { Link ,useParams,useNavigate} from 'react-router-dom';
 import "../Styles/Userpage.css";
 
 export default function Userpage() {
+
     const [username,setusername] = useState("");
     const [Role,setRole] = useState("");
     // const Phone = sessionStorage.getItem("Phone");
+
     const navigate = useNavigate();
 
     const getuserinfo = () =>{
         Axios.post('http://localhost:3001/Get_user',{
+
             username : sessionStorage.getItem("usernamelogin")
         }).then((Response) => {
             console.log(Response.data[0])
@@ -22,6 +25,7 @@ export default function Userpage() {
             else{
                 setRole(Response.data[0].role);
             }
+
         });
     }
     const logout = () =>{
@@ -29,11 +33,14 @@ export default function Userpage() {
       sessionStorage.setItem("login_status","false");
       sessionStorage.setItem("role","null");
       navigate('/login', { replace: true });
+
       window.location.reload(false);
+
     }
 
     React.useEffect(() => {
         getuserinfo()
+
     },[]);
 
     return(
@@ -42,10 +49,12 @@ export default function Userpage() {
             <h1>User Infomation</h1>
 
             <div className='Userinfocontainer'>
+
                     <p>Username : {username}</p>
             </div>
             <div className='Userinfocontainer'>
                     <p>Role : {Role}</p>
+
             </div>
             <div className='LogoutButton'>
                 <Link to={'/login'}><button className="button-29" onClick={logout}>Logout</button></Link>

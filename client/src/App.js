@@ -19,13 +19,17 @@ import Register_suc from './Component/Reg_suc';
 import Payment from './Component/Payment';
 import Contact from './Component/Contact';
 import Register from './Component/Register';
+
 import Cart from './Component/Cart2';
+
 import Order_history from './Component/Order_history';
 import See_order_detail from './Component/See_order_detail';
 import Userpage from './Component/Userpage';
 import Manage_order from './Component/Manage_order';
 import Edit_delivery_ID from './Component/Edit_delivery_ID';
+
 import Rate_star from './Component/Rate_star';
+
 import {
   BrowserRouter,
   Switch,
@@ -45,7 +49,9 @@ function App() {
       sessionStorage.setItem("usernamelogin","null");
       sessionStorage.setItem("login_status","false");
       sessionStorage.setItem("role","null");
+
       sessionStorage.setItem("Phone","null")
+
     }
 
   }
@@ -79,7 +85,9 @@ function App() {
           <Route path='Payment' element={<Payment/>}></Route>
           <Route path='Manage_order' element={<Manage_order/>}></Route>
           <Route path='Edit_delivery_ID/:Order_ID' element={<Edit_delivery_ID/>}></Route>
+
           <Route path="Rate_star" element={<Rate_star/>}></Route>
+
 
         </Route>
       </Routes>

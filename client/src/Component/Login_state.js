@@ -8,10 +8,12 @@ export default function Login_state(){
     
 
     const getuserlogin = () => {
+
         return sessionStorage.getItem("usernamelogin");
       };
 
       const getloginstatus = () => {
+
         return sessionStorage.getItem("login_status");
       };
 
@@ -19,6 +21,7 @@ export default function Login_state(){
         if(getloginstatus() == "true"){
             return(
             <body className="box">
+
             <div class="form">
             <form className="loginbox"></form>
             <div className="topic">LOGIN SUCCES</div>
@@ -59,6 +62,7 @@ export default function Login_state(){
         <div>
             {check_login()}
         </div>
+
 
     );
 

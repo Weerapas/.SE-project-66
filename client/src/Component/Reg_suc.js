@@ -8,6 +8,7 @@ export default function Register_suc(){
 
     return(
         <div>
+
              <body className="box">
         <div class="form">
           <form className="loginbox"></form>
@@ -19,6 +20,7 @@ export default function Register_suc(){
         
         </div> 
         </body>
+
         </div>
 
     );

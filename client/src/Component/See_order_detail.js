@@ -6,16 +6,20 @@ import "../Styles/Cart.css";
 
 export default function See_order_detail() {
   const { Order_ID } = useParams();
+
   const [ProductList, setProductList] = useState([]);
   const [destination, setdestination] = useState("");
+
   const [total, settotal] = useState(0);
 
   const getBooklist = () => {
     Axios.post("http://localhost:3001/History_Detail", {
       Order_ID: Order_ID,
     }).then((Response) => {
+
       console.log(Response.data)
       setProductList(Response.data);
+
       sum_total();
       Requst_Destination();
     });
@@ -59,7 +63,9 @@ export default function See_order_detail() {
 
           <div className="item_top"></div>
         </div>
+
         {ProductList.map((val, key) => {
+
           return (
             <div className="Cart-container">
               <div className="item_img">
@@ -70,6 +76,7 @@ export default function See_order_detail() {
               </div>
 
               <div className="item_bookid">
+
                 <p>{val.orderPID}</p>
               </div>
 
@@ -79,6 +86,7 @@ export default function See_order_detail() {
 
               <div className="item_BookType">
                 <p>{val.price}</p>
+
               </div>
 
               <div className="item_button"></div>
