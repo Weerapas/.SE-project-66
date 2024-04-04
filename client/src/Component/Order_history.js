@@ -5,67 +5,75 @@ import { Link ,useParams} from 'react-router-dom';
 import "../Styles/Cart.css";
 
 export default function Order_history() {
-    const [booklist,setbooklist] = useState([]);
-    const Phone =sessionStorage.getItem("Phone")
+
+    const [Orderlist,setOrderlist] = useState([]);
+    const username = sessionStorage.getItem("usernamelogin")
     
 
-    const getBooklist = () =>{
+    const getOrderlist = () =>{
+        console.log(username)
         Axios.post('http://localhost:3001/History',{
-            Phone : Phone
+            username : username
         }).then((Response) => {
-            setbooklist(Response.data);
+            console.log(Response.data)
+            setOrderlist(Response.data);
         });
     }
 
   
-    getBooklist();
+    getOrderlist();
     return (
         <div >
             <div >
-                <div className='Cart-container'>
-                    <div className='item_top'>
-                    <p>หมายเลขออเดอร์</p>
-                    </div>
-                    <div className='item_top'>
-                    <p>เลขพัสดุ</p>
-                    </div>
-                    <div className='item_top'>
-                        <p>สถานะการโอน</p>
-                    </div>
-                    <div className='item_top'>
-                        <p>สถานะ</p>
-                    </div>
-                    <div className='item_top'>
-                    </div>
-                </div>
-            {
-            booklist.map((val, key) =>{return (
             <div className='Cart-container'>
-                <div className='item_bookid'>
-                    <p>{val.Order_ID}</p>
-                </div>
-                
-                <div className='item_bookname'>
-                    <p>{val.Derivery_ID}</p>
-                </div>
-                
-                <div className='item_bookname'>
-                    <p>{val.Slip_status}</p>
-                </div>
-                
-                <div className='item_BookType'>
-                    <p>{val.Order_Status}</p>
+                             <div className='item_top'>
+                             <p>หมายเลขออเดอร์</p>
+                             </div>
+                             <div className='item_top'>
+                             <p>ราคา</p>
+                             </div>
+                 
+                             <div className='item_top'>
+                                 <p>สถานะการโอน</p>
+                             </div>
+                 
+                             <div className='item_top'>
+                                 <p>สถานะ</p>
+                             </div>
+                 
+                             <div className='item_top'>
+                 
+                            
+                             </div>
+                                 </div>
+            {Orderlist.map((val, key) =>{
+            return (
+            <div className='Cart-container'>
+            <div className='item_bookid'>
+                <p>{val.OrderID}</p>
+            </div>
+            <div className='item_bookname'>
+                 <p>{val.TotalPrice}</p>
+            </div>
+            <div className='item_BookType'>
+                {Boolean(val.status) ? "เสร็จสิ้น":"ค้างชำระ"}
+            </div>
+            
+            <div className='item_button'>
+                <Link to={"/See_order_detail/"+val.OrderID}>
+                    <button className="button-28" >รายละเอียด</button>
+                </Link> 
+            </div>
                 </div>
 
-                <div className='item_button'>
-                    <Link to={"/See_order_detail/"+val.Order_ID}>
-                        <button className="button-28" >รายละเอียด</button>
-                    </Link> 
-                </div>
+
+        )})}
+        
             </div>
-            )})
-            }
-            </div>
+           
+
+
+
         </div> 
     );
 }

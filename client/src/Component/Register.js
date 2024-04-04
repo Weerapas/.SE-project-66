@@ -5,14 +5,19 @@ import { Link,useNavigate } from "react-router-dom";
 import "../Styles/login.css";
 
 export default function Register(){
-    const [Username,setUsername] = useState("");
-    // const [Last_name,setLast_name] = useState("");
+
+    const [username,setusername] = useState("");
+    const [phone,setPhone] = useState("");
+
     const [password,setpassword] = useState("");
     const navigate = useNavigate();
 
     const addcustomer =()=>{
         Axios.post('http://localhost:3001/Register',{
-            Username : Username,
+
+            username : username,
+            phone : phone,
+
             password : password
         }).then( (Response) =>{ 
             if (Response.data === "Values inserted"){
@@ -20,6 +25,7 @@ export default function Register(){
             }else{
                 navigate('/Reg_f', { replace: true });
             }
+
         })
     }
     
@@ -31,17 +37,35 @@ export default function Register(){
          <form ></form>
             <div class='topic'>SIGN UP</div>
             <div className='text'>Username : </div>
-            <input
-                type='text'
-                placeholder='Enter Username'
-                onChange={(event) =>{setUsername(event.target.value)}}  
-            />
+
+                      <input
+                          type='text'
+                          placeholder='Enter Username'
+                          onChange={(event) =>{
+                            setusername(event.target.value)
+                          }}  
+                      />
+
+            <div className='text'>Phone Number : </div>
+                      <input
+                          type='text'
+                          
+                          placeholder='Enter Phone Number'
+                          onChange={(event) =>{
+                            setPhone(event.target.value)
+                          }}  
+                      />
+
             <div className='password'  >Password : </div>
-            <input
-                type='password'
-                placeholder='Enter password'
-                onChange={(event) =>{setpassword(event.target.value)}}  
-            />
+                      <input
+                          type='password'
+                          
+                          placeholder='Enter password'
+                          onChange={(event) =>{
+                            setpassword(event.target.value)
+                          }}  
+                      />
+
 
             <Link to="/"><button onClick={addcustomer}> Sign up</button></Link>
 

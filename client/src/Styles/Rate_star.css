@@ -1,0 +1,37 @@
+.rating-container {
+    /* border: 1px solid #000000; */
+    background-color: rgba(254, 254, 153, 0.908);
+    border-radius: 5px;
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-bottom: 1%;
+}
+
+.rating {
+    padding-top: 1%;
+}
+
+.star {
+    cursor: pointer;
+}
+.field_Star{
+    padding-top: 5%;
+}
+.submit-button {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove border */
+    color: white; /* White text */
+    padding: 15px 32px; /* Padding */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Display as inline-block */
+    font-size: 16px; /* Increase font size */
+    margin: 4px 2px; /* Margin */
+    cursor: pointer; /* Pointer cursor */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.submit-button:hover {
+    background-color: #45a049; /* Darken the button on hover */
+}

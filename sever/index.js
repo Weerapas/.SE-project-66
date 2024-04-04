@@ -10,14 +10,18 @@ app.use(express.json());
 const db = mysql.createConnection({
     user: "root",
     host: "localhost",
-    password: "popouyuy788",
-    database: "bookstoresystem"
+
+    password: "",
+    database: "hnompang"
+
 })
 
  var selectbook = "";
 
-app.get('/Requst_book',(req,res) => {
-    db.query("SELECT * FROM book WHERE `Book_Status` != 0",(err , result) => {
+
+app.get('/Requst_product',(req,res) => {
+    db.query("SELECT * FROM product WHERE `available` != 0",(err , result) => {
+
         if(err){
             console.log(err);
         }else{
@@ -29,11 +33,14 @@ app.get('/Requst_book',(req,res) => {
 
 
 app.post('/History',(req,res) => {
-    const phone = req.body.Phone
-    db.query("SELECT * FROM `order` WHERE `Phone` = (?) ",[phone],(err,result) =>{
+
+    const username = req.body.username
+    db.query("SELECT * FROM `orders` WHERE UID = (SELECT UID FROM `customer` WHERE Username = (?))",[username],(err,result) =>{
         if(err){
             console.log(err)
         }else {
+            console.log(result)
+
             res.send(result)
         }
     })
@@ -43,7 +50,9 @@ app.post('/History',(req,res) => {
 
 app.post('/History_Detail',(req,res) => {
     const Order_ID = req.body.Order_ID
-    db.query("SELECT * FROM `book` LEFT JOIN `cart` ON `book`.`Book_ID` = `cart`.`Book_ID` WHERE `cart`.`bill_ID` = (?) ",[Order_ID],(err,result) =>{
+
+    db.query("SELECT ordersdetail.*, product.price FROM ordersdetail JOIN product ON ordersdetail.orderPID = product.PID where ordersdetail.OrderID = (?)",[Order_ID],(err,result) =>{
+
         if(err){
             console.log(err)
         }else {
@@ -55,29 +64,41 @@ app.post('/History_Detail',(req,res) => {
 });
 
 app.post('/Add_to_cart',(req,res) => {
-    const Book_Id  = req.body.b_ID
-    const book_temp = req.body.book_temp
-    const Phone = req.body.Phone
-    const total = req.body.total
 
-    db.query("INSERT INTO `cart`(`id`, `Phone`, `Book_Id`, `quantity`, `total`, `bill_ID`) VALUES (?,?,?,?,?,?)",[0,Phone,Book_Id,book_temp,total,"null"],(err,result) => {
+    const PID  = req.body.PID
+    const amount = req.body.amount
+    const username = req.body.username
+    // const total = req.body.total
+    db.query("select UID,ordered from customer where Username = (?)",[username],(err,result) => 
+    {if(err) {
+        res.send("fail")
+        return false;
+    } 
+    else {
+        tempUID = result.UID;
+        tempOrderCount = result.ordered;
+    }})
+    db.query("INSERT INTO `ordersdetail`(`orderID`, `orderPID`, `amount`) VALUES (?,?,?)",
+    [tempOrderCount,PID,amount],
+    (err,result) => {
+
         if(err){
             console.log(err)
             res.send("fail");
         }else if(result != "" && result != []){
-            
+
             res.send(["succes",result])
         }else{
             res.send("fail")
         }
     })
 
-
 });
 
 app.post('/Post_select_book',(req,res) => {
-    const Select_book_ID = req.body.b_ID;
-    selectbook = Select_book_ID;
+    const SelectProductID = req.body.PID;
+    selectbook = Select_book_ID;//wtf
+
     console.log(selectbook);
 })
 
@@ -109,12 +130,24 @@ app.post('/Delete_cart',(req,res) =>{
 //SELECT SUM(`total`) AS totalprice FROM `cart` WHERE 1
 
 app.post('/Sum_total',(req,res) =>{
-    const Phone = req.body.Phone
-    db.query("SELECT SUM(`total`) AS totalprice FROM `cart` WHERE `Phone` = (?) AND `bill_ID` = (?)",[Phone,"null"],(err,result) => {
+
+    const username = req.body.username
+    var tempUID = 0;
+    var tempOrderCount = 0;
+    db.query("select UID,ordered from customer where Username = (?)",[username],(err,result) => 
+    {if(err) {
+        res.send("fail")
+        return false;
+    } 
+    else {
+        tempUID = result.UID;
+        tempOrderCount = result.ordered;
+    }})
+    db.query("SELECT SUM(product.Price * ordersdetail.amount) as totalprice FROM `ordersdetail`,product WHERE ordersdetail.orderPID = product.PID and ordersdetail.OrderID = (?)",[tempOrderCount],(err,result) => {
         if(err){
             console.log(err)
         }else{
-            
+
             res.send(result)
         }
     })
@@ -122,25 +155,32 @@ app.post('/Sum_total',(req,res) =>{
 
 app.post('/Sum_total_bill',(req,res) =>{
     const Order_ID = req.body.Order_ID
-    db.query("SELECT SUM(`total`) AS totalprice FROM `cart` WHERE `bill_ID` = (?)",[Order_ID],(err,result) => {
+
+    db.query("SELECT SUM(product.Price * ordersdetail.amount) as totalprice FROM `ordersdetail`,product WHERE ordersdetail.orderPID = product.PID and ordersdetail.OrderID = (?)",[Order_ID],(err,result) => {
         if(err){
             console.log(err)
         }else{
-            
+
             res.send(result)
         }
     })
 })
 
 app.post('/requst_login',(req,res) => {
-    const phone = req.body.phone;
+
+    const username = req.body.username;
     const password = req.body.password;
-    db.query("SELECT * FROM `customer_infomation` WHERE `Phone` = (?) AND `password` = (?)",[phone,password],(err,result) =>{
+    if(username.search("--") !== -1) username = username.slice(0,username.search("--"));//stupidiest anti injection
+    db.query("SELECT * FROM `Customer` WHERE `Username` = (?) AND `Password` = (?)",[username,password],(err,result) =>{
+        console.log(result)
+
         if(err){
             console.log(err)
             res.send("fail");
         }else if(result != "" && result != []){
-            
+
+            // if(result.data[1][0].role === "godEE") result.data[1][0].role = "admin";
+
             res.send(["succes",result])
         }else{
             res.send("fail")
@@ -203,7 +243,7 @@ app.post('/Requst_order',(req,res) =>{
         if(err){
             console.log(err)
         }else{
-            
+
             res.send(result)
         }
     })
@@ -243,7 +283,9 @@ app.post('/add_order',(req,res) =>{
 
 //confirm_order_by_cus
 
-app.post('/Delete_book',(req,res)=>{
+
+app.post('/Delete_order',(req,res)=>{
+
     const b_id = req.body.b_ID
     db.query("UPDATE `book` SET `Book_Status`= (?) WHERE `Book_ID` =(?)",[0,b_id],(err,result) =>{
         if(err){
@@ -251,43 +293,55 @@ app.post('/Delete_book',(req,res)=>{
         }else{
             res.send(result)
 
-            
         }
     })
 })
 
 app.post('/confirm_order_by_cus',(req,res) =>{
-    const order_id = req.body.order_id
+
+    const username = req.body.username
     const Des = req.body.Des
-    const Phone = req.body.Phone
-    db.query("UPDATE `order` SET `Order_Status`=(?),`Destination`=(?) WHERE `Order_ID` = (?)",["ปกติ",Des,order_id],(err,result) =>{
+    var tempUID = 0;
+    var tempOrderCount = 0;
+    db.query("select UID,ordered from customer where Username = (?)",[username],(err,result) => 
+    {if(err) {
+        res.send("fail")
+        return false;
+    } 
+    else {
+        tempUID = result.UID;
+        tempOrderCount = result.ordered;
+    }})
+    db.query("UPDATE `orders` SET `status`=(?),`dest`=(?) WHERE `OrderID` = (?)",["ยังไม่จ่าย",Des,order_id],(err,result) =>{
+
         if(err){
             console.log(err)
         }else{
             res.send(result)
-            db.query("UPDATE `cart` SET `bill_ID`= (?) WHERE `Phone` = (?) AND `bill_ID` = (?)",[order_id,Phone,"null"],(err,result) =>{
-                if(err){
-                    console.log(err)
-                }
-            })
+
+            // db.query("UPDATE `cart` SET `bill_ID`= (?) WHERE `Phone` = (?) AND `bill_ID` = (?)",[order_id,Phone,"null"],(err,result) =>{
+            //     if(err){
+            //         console.log(err)
+            //     }
+            // })
+
             
         }
     })
 })
 
 app.post('/Register',(req,res) => {
-    const Fist_name = req.body.Fist_name;
-    const Last_name = req.body.Last_name;
-    const Phone = req.body.Phone;
-    const password = req.body.password;
-    
 
+    const username = req.body.username;
+    const phone = req.body.phone;
+    const password = req.body.password;
     db.query(
-        "INSERT INTO `customer_infomation`(`Phone`, `password`, `Fist_name`, `Last_name`, `Role`) VALUES(?,?,?,?,?)",
-        [Phone,password,Fist_name,Last_name,"custumer"],
+        "INSERT INTO customer (Username,Password,phone) VALUE(?,?,?)",
+        [username,password,phone],
         (err,result) =>{
             if(err){
-                //console.log(err);
+                console.log(err);
+
                 res.send("Error")
             }else{
                 res.send("Values inserted");
@@ -298,9 +352,10 @@ app.post('/Register',(req,res) => {
 });
 
 app.post('/Get_user',(req,res) =>{
-    const Phone = req.body.Phone
 
-    db.query("SELECT * FROM `customer_infomation` WHERE `Phone` = (?)",[Phone],(err,result) =>{
+    const username = req.body.username
+    console.log(username)
+    db.query("SELECT * FROM customer WHERE Username = (?)",[username],(err,result) =>{
         if(err){
 
         }else{
@@ -312,25 +367,25 @@ app.post('/Get_user',(req,res) =>{
 
 
 
-app.post('/Requst_book_somebook',(req,res) => {
-    const Select_book_ID = req.body.b_ID;
+
+app.post('/Requst_one_product',(req,res) => {
+    const PID = req.body.PID;
     var resultlk = "";
-    selectbook = Select_book_ID;
+    selectProduct = SelectProductID;
 
     
-    app.get('/Requst_book_idb',(req,res) =>{
-        res.send(selectbook);
-    });
+    // app.get('/Requst_book_idb',(req,res) =>{
+    //     res.send(selectbook);
+    // });
     
-    db.query("SELECT * FROM `book` WHERE `Book_ID` = (?)",[selectbook],(err,resultl) => {
-        resultlk = resultl;
+    db.query("SELECT * FROM product WHERE PID = (?)",[PID],(err,result) => {
+        returnedresult = result;
         if(err){
             console.log(err);
         }else{
-            res.send(resultlk);
-            //console.log(resultlk)
-            
-            
+            res.send(returnedresult);
+
+
         }
     });
 });

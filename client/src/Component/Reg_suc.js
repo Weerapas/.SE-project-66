@@ -8,13 +8,19 @@ export default function Register_suc(){
 
     return(
         <div>
-            <body className="box">
-            <div class="form">
-            <form className="loginbox"></form>
-            <div className="topic">REGISTER SUCCES</div>
+
+             <body className="box">
+        <div class="form">
+          <form className="loginbox"></form>
+          <div className="topic">REGISTER SUCCES</div>
+          
+         
+
             <Link to={"/login"}><button>Continue</button></Link>
-            </div> 
-            </body>
+        
+        </div> 
+        </body>
+
         </div>
 
     );

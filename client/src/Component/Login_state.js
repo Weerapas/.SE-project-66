@@ -8,12 +8,12 @@ export default function Login_state(){
     
 
     const getuserlogin = () => {
-       
+
         return sessionStorage.getItem("usernamelogin");
       };
 
       const getloginstatus = () => {
-        
+
         return sessionStorage.getItem("login_status");
       };
 
@@ -21,41 +21,48 @@ export default function Login_state(){
         if(getloginstatus() == "true"){
             return(
             <body className="box">
-              <div class="form">
-                <form className="loginbox"></form>
-                <div className="topic">LOGIN SUCCES</div>
-                <button onClick={()=>{
-                  if (sessionStorage.getItem("role") === "admin"){
-                      navigate('/Manage_book', { replace: true });
-                  }else{
-                      navigate('/Book_shelf', { replace: true });
-                  }
-                window.location.reload(false);
-                }}>Continue</button>
-              </div>
-            </body>
-            );
+
+            <div class="form">
+            <form className="loginbox"></form>
+            <div className="topic">LOGIN SUCCES</div>
+            <button onClick={()=>{
+              if (sessionStorage.getItem("role") == "admin"){
+                  navigate('/Manage_book', { replace: true });
+              }else{
+                navigate('/Book_shelf', { replace: true });
+              }
+
+              window.location.reload(false);
+            }}>Continue</button>
+        </div> 
+        </body>
+        );
         }else{
             return(
-              <body className="box">
-              <div class="form">
-                <form className="loginbox"></form>
-                <div className="topic">LOGIN FAIL</div>
-                <Link to={"/login"}><button>Retry</button></Link>
-                <br></br>
-                <p class="message">
-                  Not registered? <a href="Register">Create an account</a>
-                </p>
-              </div> 
-              </body>
+            <body className="box">
+            <div class="form">
+            <form className="loginbox"></form>
+            <div className="topic">LOGIN FAIL</div>
+            <Link to={"/login"}><button>Try again</button></Link>
+            <br></br>
+            <p class="message">
+              Not registered? <a href="Register">Create an account</a>
+            </p>
+        </div> 
+        </body>
+                    // { <Link to={"/login"}><button>Try again</button></Link>
+                    // <Link to={"/Register"}><button>Sign up</button> </Link> }
+                
             );
         }
 
       }
-      return(
-      <div>
-          {check_login()}
-      </div>
+
+    return(
+        <div>
+            {check_login()}
+        </div>
+
 
     );
 

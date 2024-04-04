@@ -1,7 +1,9 @@
 .headerbg{
     margin-left: 7.5%;
     margin-top: 6%;
-    background-color: #6EC4DB;
+
+    background-color: #d8ff94;
+
     height: 400px;
     width: 85%;
 }
@@ -33,13 +35,15 @@
   }
   
   .video {
-    width:auto%;
-    height:auto%;
+
+    width:auto;
+    height:auto;
     /* border: solid red; */
   }
   .video iframe{
-    width:auto%;
-    height:auto%;
+    width:auto;
+    height:auto;
+
     /* border: solid green; */
   }
   @media (min-width: 1440px) {
