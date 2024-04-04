@@ -7,71 +7,59 @@ import { ImCart } from "react-icons/im";
 
 export default function See_detail(){
 
-    const { b_ID } = useParams();
-    const [booklist, setbooklist] = useState([]);
+    const { PID } = useParams();
+    const [Product, setProduct] = useState([]);
     const [bookQ,setbookQ] = useState(0);
-    const [book_temp,setbook_temp] = useState(1);
+    const [amount,setamount] = useState(1);
     const Phone = sessionStorage.getItem("Phone");
     
 
-    const postBooklist = () => {
+    const postProduct = () => {
        
-        Axios.post('http://localhost:3001/Requst_book_somebook', { b_ID }).then((Response) => {
-            setbooklist(Response.data[0]);
-            setbookQ(Response.data[0].Book_Quantity);
+        Axios.post('http://localhost:3001/Requst_one_product', { PID }).then((Response) => {
+            setProduct(Response.data[0]);
+            // setbookQ(Response.data[0].Book_Quantity);
         });
         
     }
     React.useEffect(() => {
-        postBooklist()
+        postProduct()
         
     },[]);
 
     const addcart = () =>{
-        const total = booklist.Book_Price*book_temp;
+        // const total = Product.Price*amount;
         Axios.post('http://localhost:3001/Add_to_cart',{
-            b_ID : b_ID,
-            book_temp : book_temp,
-            Phone : Phone,
-            total : total
+            PID : PID,
+            amount : amount,
+            username : sessionStorage.getItem("usernamelogin"),
+            // total : total
         }).then()
     }
-        const increaseValue = () =>{
-            if (book_temp < bookQ){
-                setbook_temp(book_temp+1)
-                
-            }
-            
-        }
+    const increaseValue = () =>{
+            setamount(amount+1)
+    }
 
-        const decreaseValue = () =>{
-            if (book_temp > 1){
-                setbook_temp(book_temp-1)
-                
-            }
-           
+    const decreaseValue = () =>{
+        if (amount > 1){
+            setamount(amount-1)
         }
+    }
 
     const check =() => {
-        if (bookQ > 0){
-
-            
+        if (Product.available != false){
             if (sessionStorage.getItem("login_status") == "true"){
                 return(
                     <div> <div class='valueform'>
                     <button class="value-button" id="decrease" onClick={decreaseValue}>-</button>
-                    <input type="number" id="number" 
-                    defaultValue={book_temp}
-                    value={book_temp}
+                    <input type="number" id="number"
+                    defaultValue={amount}
+                    value={amount}
                     onChange={(event) =>{
-                        setbook_temp(parseInt(event.target.value))
-                        if (book_temp < 0 ){
-                            setbook_temp(1)
+                        setamount(parseInt(event.target.value))
+                        if (amount < 0 ){
+                            setamount(1)
                         }
-                        if (parseInt(event.target.value) > bookQ){
-                            setbook_temp(bookQ)
-                        }
-                        
                     }}  />
                     <button class="value-button" id="increase" onClick={increaseValue} >+</button>
                 </div>
@@ -83,17 +71,13 @@ export default function See_detail(){
                     <div> <div class='valueform'>
                     <button class="value-button" id="decrease" onClick={decreaseValue}>-</button>
                     <input type="number" id="number" 
-                    defaultValue={book_temp}
-                    value={book_temp}
+                    defaultValue={amount}
+                    value={amount}
                     onChange={(event) =>{
-                        setbook_temp(parseInt(event.target.value))
-                        if (book_temp < 0 ){
-                            setbook_temp(1)
+                        setamount(parseInt(event.target.value))
+                        if (amount < 0 ){
+                            setamount(1)
                         }
-                        if (parseInt(event.target.value) > bookQ){
-                            setbook_temp(bookQ)
-                        }
-                        
                     }}  />
                     <button class="value-button" id="increase" onClick={increaseValue} >+</button>
                 </div>
@@ -115,14 +99,14 @@ export default function See_detail(){
         <div class="content_detali">
 
             <div class="img_detali">
-                 <img src={"https://drive.google.com/uc?export=view&id="+booklist.Book_Pic} alt=""></img>
+                 <img src={"https://drive.google.com/uc?export=view&id="+Product.Book_Pic} alt=""></img>
             </div>
             
             <div class="text_detali">
-                <h1 >{booklist.Book_Name}</h1>
-                <p>{booklist.Book_Detail}</p>
+                <h1 >{Product.Book_Name}</h1>
+                <p>{Product.Book_Detail}</p>
                 <br></br>
-                <h1>ราคา : {booklist.Book_Price} THB</h1>
+                <h1>ราคา : {Product.Book_Price} THB</h1>
                 {check()}
 
             </div>              

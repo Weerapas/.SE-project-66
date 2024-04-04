@@ -56,29 +56,36 @@ app.post('/History_Detail',(req,res) => {
 });
 
 app.post('/Add_to_cart',(req,res) => {
-    const Book_Id  = req.body.b_ID
-    const book_temp = req.body.book_temp
-    const Phone = req.body.Phone
-    const total = req.body.total
-
-    db.query("INSERT INTO `cart`(`id`, `Phone`, `Book_Id`, `quantity`, `total`, `bill_ID`) VALUES (?,?,?,?,?,?)",[0,Phone,Book_Id,book_temp,total,"null"],(err,result) => {
+    const PID  = req.body.PID
+    const amount = req.body.amount
+    const username = req.body.username
+    // const total = req.body.total
+    db.query("select UID,ordered from customer where Username = (?)",[username],(err,result) => 
+    {if(err) {
+        res.send("fail")
+        return false;
+    } 
+    else {
+        tempUID = result.UID;
+        tempOrderCount = result.ordered;
+    }})
+    db.query("INSERT INTO `ordersdetail`(`orderID`, `orderPID`, `amount`) VALUES (?,?,?)",
+    [tempOrderCount,PID,amount],
+    (err,result) => {
         if(err){
             console.log(err)
             res.send("fail");
         }else if(result != "" && result != []){
-            
             res.send(["succes",result])
         }else{
             res.send("fail")
         }
     })
-
-
 });
 
 app.post('/Post_select_book',(req,res) => {
-    const Select_book_ID = req.body.b_ID;
-    selectbook = Select_book_ID;
+    const SelectProductID = req.body.PID;
+    selectbook = Select_book_ID;//wtf
     console.log(selectbook);
 })
 
@@ -309,25 +316,23 @@ app.post('/Get_user',(req,res) =>{
 
 
 
-app.post('/Requst_book_somebook',(req,res) => {
-    const Select_book_ID = req.body.b_ID;
+app.post('/Requst_one_product',(req,res) => {
+    const PID = req.body.PID;
     var resultlk = "";
-    selectbook = Select_book_ID;
+    selectProduct = SelectProductID;
 
     
-    app.get('/Requst_book_idb',(req,res) =>{
-        res.send(selectbook);
-    });
+    // app.get('/Requst_book_idb',(req,res) =>{
+    //     res.send(selectbook);
+    // });
     
-    db.query("SELECT * FROM `book` WHERE `Book_ID` = (?)",[selectbook],(err,resultl) => {
-        resultlk = resultl;
+    db.query("SELECT * FROM product WHERE PID = (?)",[PID],(err,result) => {
+        returnedresult = result;
         if(err){
             console.log(err);
         }else{
-            res.send(resultlk);
-            //console.log(resultlk)
-            
-            
+            res.send(returnedresult);
+
         }
     });
 });
