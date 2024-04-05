@@ -52,7 +52,7 @@ export default function Order_history() {
                 <p>{val.OrderID}</p>
             </div>
             <div className='item_bookname'>
-                 <p>{val.TotalPrice}</p>
+                 <p>{val.total}</p>
             </div>
             <div className='item_BookType'>
                 {Boolean(val.status) ? "เสร็จสิ้น":"ค้างชำระ"}

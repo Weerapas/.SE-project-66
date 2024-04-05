@@ -30,7 +30,7 @@ app.get('/Requst_product',(req,res) => {
 
 app.post('/History',(req,res) => {
     const username = req.body.username
-    db.query("SELECT * FROM `orders` WHERE UID = (SELECT UID FROM `customer` WHERE Username = (?))",[username],(err,result) =>{
+    db.query("SELECT * FROM `orders` WHERE OrderUID = (SELECT UID FROM `customer` WHERE Username = (?))",[username],(err,result) =>{
         if(err){
             console.log(err)
         }else {
@@ -51,36 +51,74 @@ app.post('/History_Detail',(req,res) => {
             res.send(result)
         }
     })
-
-
 });
 
-app.post('/Add_to_cart',(req,res) => {
-    const PID  = req.body.PID
-    const amount = req.body.amount
+app.post('/newOrder',(req,res) => {
     const username = req.body.username
-    // const total = req.body.total
+    var tempUID = 0;
+    var newOrderNum = 0;
     db.query("select UID,ordered from customer where Username = (?)",[username],(err,result) => 
     {if(err) {
         res.send("fail")
         return false;
     } 
     else {
+        console.log(result)
         tempUID = result.UID;
-        tempOrderCount = result.ordered;
+        newOrderNum = result.ordered + 1;
     }})
-    db.query("INSERT INTO `ordersdetail`(`orderID`, `orderPID`, `amount`) VALUES (?,?,?)",
-    [tempOrderCount,PID,amount],
-    (err,result) => {
+    db.query("SELECT * FROM ordersdetail JOIN product ON ordersdetail.orderPID = product.PID where ordersdetail.OrderID = (?)",[Order_ID],(err,result) =>{
+        if(err){
+            console.log(err)
+        }else {
+            res.send(result)
+        }
+    })
+});
+
+app.post('/Add_to_cart',(req,res) => {
+    const PID  = req.body.PID
+    const amount = req.body.amount
+    const username = req.body.username
+    let tempUID = 0;
+    let newOrderNum = 0;
+    db.query("select UID,ordered from customer where Username = (?)",[username],(err,result) => 
+    {if(err) {
+        res.send("fail")
+        return false;
+    }
+    else {
+        console.log(result)
+        tempUID = result[0].UID;
+        newOrderNum = result[0].ordered + 1;
+    }})
+    db.query("select * from orders where orderID = (?)",[newOrderNum],(err,result) => {
         if(err){
             console.log(err)
             res.send("fail");
-        }else if(result != "" && result != []){
-            res.send(["succes",result])
         }else{
-            res.send("fail")
+            if(result == []) {
+                console.log("yesyesyes")
+                db.query("insert into orders (OrderID,OrderUID,total,status) value(?,?,0,0)",{newOrderNum,tempUID},(err,res2)=>{
+                if(err) {res.send("fail")}
+                else {res.send(["succes",res2])}
+            })}
+            db.query("INSERT INTO `ordersdetail`(`OrderID`, `orderPID`, `amount`) VALUES (?,?,?)",
+            [tempOrderCount,PID,amount],
+            (err,result) => {
+                if(err){
+                    console.log(err)
+                    res.send("fail");
+                }else if(result != "" && result != []){
+                    res.send(["succes",result])
+                }else{
+                    res.send("fail")
+                }
+            })
+            
         }
     })
+    
 });
 
 app.post('/Post_select_book',(req,res) => {
@@ -119,7 +157,7 @@ app.post('/Delete_cart',(req,res) =>{
 app.post('/Sum_total',(req,res) =>{
     const username = req.body.username
     var tempUID = 0;
-    var tempOrderCount = 0;
+    var newOrderNum = 0;
     db.query("select UID,ordered from customer where Username = (?)",[username],(err,result) => 
     {if(err) {
         res.send("fail")
@@ -127,9 +165,9 @@ app.post('/Sum_total',(req,res) =>{
     } 
     else {
         tempUID = result.UID;
-        tempOrderCount = result.ordered;
+        newOrderNum = result.ordered + 1;
     }})
-    db.query("SELECT SUM(product.Price * ordersdetail.amount) as totalprice FROM `ordersdetail`,product WHERE ordersdetail.orderPID = product.PID and ordersdetail.OrderID = (?)",[tempOrderCount],(err,result) => {
+    db.query("SELECT SUM(product.Price * ordersdetail.amount) as totalprice FROM `ordersdetail`,product WHERE ordersdetail.orderPID = product.PID and ordersdetail.OrderID = (?)",[newOrderNum],(err,result) => {
         if(err){
             console.log(err)
         }else{
@@ -173,7 +211,6 @@ app.post('/Order_manange',(req,res)=>{
         if(err){
             console.log(err)
         }else{
-            
             res.send(result)
         }
     })
@@ -336,21 +373,12 @@ app.post('/Get_user',(req,res) =>{
 
 app.post('/Requst_one_product',(req,res) => {
     const PID = req.body.PID;
-    var resultlk = "";
-    selectProduct = SelectProductID;
-
-    
-    // app.get('/Requst_book_idb',(req,res) =>{
-    //     res.send(selectbook);
-    // });
-    
     db.query("SELECT * FROM product WHERE PID = (?)",[PID],(err,result) => {
-        returnedresult = result;
         if(err){
             console.log(err);
         }else{
-            res.send(returnedresult);
-
+            res.send(result);
+            console.log(result);
         }
     });
 });

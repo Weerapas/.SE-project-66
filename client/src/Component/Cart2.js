@@ -11,19 +11,10 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Cart() {
+  const [cartItems, setCartItems] = useState([]);
+  const [product, setProductList] = useState([]);
     const navigate = useNavigate();
-    const Phone =sessionStorage.getItem("Phone")
     const add_order = () => {
-        // Axios.post('http://localhost:3001/delet_bad_order',{
-        //     Phone : Phone
-        // }).then()
-        // Axios.post('http://localhost:3001/add_order',{
-        //     Phone : Phone
-        // }).then((Response) =>{
-        //     console.log(Response.data[0].Order_ID)
-        //     sessionStorage.setItem("order_temp",Response.data[0].Order_ID)
-        // }
-        // )
         let timerInterval;
         Swal.fire({
             timer: 1000,
@@ -41,25 +32,40 @@ export default function Cart() {
             }
         })
     }
+
+    const check = ()=>{
+      Axios.post("http://localhost:3001/newOrder", {
+        username: sessionStorage.getItem("usernamelogin"),
+      }).then((Response) => {
+        if(Response == "fail"){
+          return;
+        }
+        console.log(Response.data)
+        setProductList(Response.data);
+      });
+    };
     const TrashIcon = ({ onClick }) => {
+        Axios.post('http://localhost:3001/remove').then((Response) => {
+          setProductList(Response.data);
+        });
         return (
           <div className="trash-icon" onClick={onClick}>
             <FontAwesomeIcon icon={faTrash} />
           </div>
         );
       };
-    const [cartItems, setCartItems] = useState([]);
 
-    const addToCart = (product) => {
+    const addToCart = () => {
         setCartItems([...cartItems, product]);
     };
 
-    const removeFromCart = (product) => {
+    const removeFromCart = () => {
         const updatedCartItems = cartItems.filter((item) => item.id !== product.id);
         setCartItems(updatedCartItems);
     };
 
     const renderCartItems = () => {
+      check()
         return (
           <ul>
             {cartItems.map((item) => (

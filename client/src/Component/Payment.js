@@ -46,12 +46,6 @@ export default function Payment() {
 
             <div className="price">
               <p>ราคาสุทธิ {total} THB</p>
-              {/* <p className="text-red">
-                *หมายเหตุ กรุณาส่งสลิปไปที่ <FaArrowCircleDown />{" "}
-                
-              </p> */}
-
-              <a href="https://line.me/R/ti/p/@030eokii">@030eokii</a>
             </div>
           </div>
         </div>
