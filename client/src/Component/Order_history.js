@@ -33,7 +33,7 @@ export default function Order_history() {
                              </div>
                  
                              <div className='item_top'>
-                                 <p>สถานะการโอน</p>
+                                 <p>สถานะการการจัดส่ง</p>
                              </div>
                  
                              <div className='item_top'>
